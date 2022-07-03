@@ -1,6 +1,6 @@
 # Recruitment Calculator
 Website that shows students whether they have enough points to get into one of 3 popular universities in Poland.
-You can check it by clicking [here](https://recruitment-calculator.vercel.app)
+You can check it by clicking [here](https://recruitment-calculator.vercel.app).
 ## I collected data from:
  - [Politechnika Gdanska](https://pg.edu.pl/rekrutacja/rekrutacja-obywatele-polscy/studia-i-stopnia/limity-i-progi)
  - [Politechnika Warszawska](https://www.portalkandydata.pw.edu.pl/kierunki/)
@@ -23,8 +23,9 @@ You can check it by clicking [here](https://recruitment-calculator.vercel.app)
  2. Create .env file
  3. In .env file add 
  ```
- DATABASE_URL=YOUR DB LINK
+ DATABASE_URL='YOUR DB LINK'
  ```
+ Remember that it must be the mongoDB database.
  4. In terminal type
  ```
  npm run dev
