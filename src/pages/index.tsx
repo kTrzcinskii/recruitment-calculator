@@ -11,6 +11,8 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import AllCourses from "../components/AllCourses";
 import ChooseUniversity from "../components/ChooseUniversity";
+import UserScore from "../components/UserScore";
+import { UserScoreInput } from "../schema/user.schema";
 import warningToastOptions from "../utils/toast/chooseUniversityToast";
 
 const Home: NextPage = () => {
@@ -19,6 +21,15 @@ const Home: NextPage = () => {
     undefined
   );
   const [choosenCourses, setChoosenCourses] = useState<string[]>([]);
+  const [userScore, setUserScore] = useState<UserScoreInput>({
+    angielskiPodst: 0,
+    angielskiRozsz: 0,
+    czyB2: false,
+    fizykaRozsz: 0,
+    matematykaPodst: 0,
+    matematykaRozsz: 0,
+    polskiPodst: 0,
+  });
 
   const toast = useToast();
   const chooseUniversityToast = warningToastOptions(
@@ -50,6 +61,7 @@ const Home: NextPage = () => {
           setChoosenCourses={setChoosenCourses}
         />
       )}
+      {step === 2 && <UserScore score={userScore} setScore={setUserScore} />}
       <HStack spacing={4} py={5}>
         <IconButton
           aria-label='Previous Step'
