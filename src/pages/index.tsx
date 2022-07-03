@@ -1,14 +1,25 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Heading, HStack, IconButton, VStack, Text } from "@chakra-ui/react";
+import {
+  Heading,
+  HStack,
+  IconButton,
+  VStack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useState } from "react";
 import ChooseUniversity from "../components/ChooseUniversity";
+import chooseUniversityToast from "../utils/toast/chooseUniversityToast";
 
 const Home: NextPage = () => {
   const [step, setStep] = useState(0);
   const [university, setUniversity] = useState<undefined | "PW" | "PG" | "PP">(
     undefined
   );
+
+  const toast = useToast();
+  const chooseUniversity = chooseUniversityToast();
   return (
     <VStack
       w='full'
@@ -19,7 +30,11 @@ const Home: NextPage = () => {
     >
       <Heading>Kalkulator Rekrutacyjny</Heading>
       {step === 0 && (
-        <ChooseUniversity setUniversity={setUniversity} setStep={setStep} />
+        <ChooseUniversity
+          setUniversity={setUniversity}
+          setStep={setStep}
+          currentUniversity={university}
+        />
       )}
       <HStack spacing={4}>
         <IconButton
@@ -36,7 +51,13 @@ const Home: NextPage = () => {
           aria-label='Next Step'
           icon={<ChevronRightIcon boxSize={8} />}
           colorScheme='purple'
-          onClick={() => setStep((prev) => prev + 1)}
+          onClick={() => {
+            if (step === 0 && !university) {
+              toast(chooseUniversity);
+              return;
+            }
+            setStep((prev) => prev + 1);
+          }}
         />
       </HStack>
     </VStack>

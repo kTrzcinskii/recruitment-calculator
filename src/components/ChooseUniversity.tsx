@@ -4,11 +4,13 @@ import { Dispatch, SetStateAction } from "react";
 interface ChooseUniversityProps {
   setUniversity: Dispatch<SetStateAction<"PW" | "PG" | "PP" | undefined>>;
   setStep: Dispatch<SetStateAction<number>>;
+  currentUniversity: "PW" | "PG" | "PP" | undefined;
 }
 
 const ChooseUniversity: React.FC<ChooseUniversityProps> = ({
   setUniversity,
   setStep,
+  currentUniversity,
 }) => {
   return (
     <VStack
@@ -25,6 +27,8 @@ const ChooseUniversity: React.FC<ChooseUniversityProps> = ({
             setUniversity("PW");
             setStep(1);
           }}
+          ring={currentUniversity === "PW" ? 3 : 0}
+          ringColor='purple.900'
         >
           Politechnika Warszawska
         </Button>
@@ -34,6 +38,8 @@ const ChooseUniversity: React.FC<ChooseUniversityProps> = ({
             setUniversity("PG");
             setStep(1);
           }}
+          ring={currentUniversity === "PG" ? 3 : 0}
+          ringColor='purple.900'
         >
           Politechnika Gdańska
         </Button>
@@ -43,6 +49,8 @@ const ChooseUniversity: React.FC<ChooseUniversityProps> = ({
             setUniversity("PP");
             setStep(1);
           }}
+          ring={currentUniversity === "PP" ? 3 : 0}
+          ringColor='purple.900'
         >
           Politechnika Poznańska
         </Button>
