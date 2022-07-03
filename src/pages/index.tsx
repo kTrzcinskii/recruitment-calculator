@@ -8,9 +8,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import Head from "next/head";
 import { useState } from "react";
 import AllCourses from "../components/AllCourses";
 import ChooseUniversity from "../components/ChooseUniversity";
+import CreatedBy from "../components/CreatedBy";
 import Results from "../components/Results";
 import UserScore from "../components/UserScore";
 import { UserScoreInput } from "../schema/user.schema";
@@ -47,6 +49,9 @@ const Home: NextPage = () => {
       minH='100vh'
       bgColor='purple.50'
     >
+      <Head>
+        <title>Kalkulator Rekrutacyjny</title>
+      </Head>
       <Heading>Kalkulator Rekrutacyjny</Heading>
       {step === 0 && (
         <ChooseUniversity
@@ -70,7 +75,7 @@ const Home: NextPage = () => {
           choosenCourses={choosenCourses}
         />
       )}
-      <HStack spacing={4} py={5}>
+      <HStack spacing={4} py={5} pb={40}>
         <IconButton
           aria-label='Previous Step'
           icon={<ChevronLeftIcon boxSize={8} />}
@@ -103,6 +108,7 @@ const Home: NextPage = () => {
           }}
         />
       </HStack>
+      <CreatedBy />
     </VStack>
   );
 };
