@@ -18,6 +18,8 @@ const SingleResult: React.FC<SingleResultProps> = ({
       w='full'
       justifyContent='space-between'
       direction={{ base: "column", md: "column", lg: "row" }}
+      bgColor={isEnough ? "green.200" : "red.100"}
+      rounded='lg'
     >
       <HStack
         justifyContent='space-between'
@@ -36,6 +38,8 @@ const SingleResult: React.FC<SingleResultProps> = ({
         w={{ base: "full", md: "full", lg: "auto" }}
         justifyContent='center'
         alignItems='center'
+        px={3}
+        py={2}
       >
         <Text fontWeight='semibold' textAlign='center' w='full'>
           {score}
