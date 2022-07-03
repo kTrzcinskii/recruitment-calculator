@@ -11,3 +11,8 @@ export const userScoreSchema = z.object({
 });
 
 export type UserScoreInput = z.TypeOf<typeof userScoreSchema>;
+
+export const calculateUserScoreSchema = z.object({
+  userScoreSchema,
+  universityName: z.enum(["PW", "PP", "PG"]),
+});
