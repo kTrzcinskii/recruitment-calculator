@@ -106,6 +106,7 @@ const Home: NextPage = () => {
             }
             setStep((prev) => prev + 1);
           }}
+          disabled={step === 3}
         />
       </HStack>
       <CreatedBy />
