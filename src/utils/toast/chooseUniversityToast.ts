@@ -1,13 +1,13 @@
 import { UseToastOptions } from "@chakra-ui/react";
 
-const chooseUniversityToast = (): UseToastOptions => {
+const warningToastOptions = (text: string): UseToastOptions => {
   return {
     position: "top",
     title: "Uwaga!",
-    description: "Proszę wybrać uczelnie przed przejściem do kolejnego kroku.",
+    description: text,
     isClosable: true,
     status: "error",
   };
 };
 
-export default chooseUniversityToast;
+export default warningToastOptions;
