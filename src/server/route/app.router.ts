@@ -1,7 +1,7 @@
 import { createRouter } from "../createRouter";
 import * as trpc from "@trpc/server";
 import { getCoursesSchema } from "../../schema/course.schema";
-import { calculateUserScoreSchema } from "../../schema/user.schema";
+import { userResultSchema } from "../../schema/user.schema";
 
 export const appRouter = createRouter()
   .query("get-courses", {
@@ -27,30 +27,27 @@ export const appRouter = createRouter()
       }
     },
   })
-  .query("get-user-score", {
-    input: calculateUserScoreSchema,
-    resolve: async ({ input }) => {
+  .query("get-results", {
+    input: userResultSchema,
+    resolve: async ({ ctx, input }) => {
+      let score = 0;
       if (input.universityName === "PW") {
         const angielski = input.userScoreSchema.czyB2
           ? 100
           : input.userScoreSchema.angielskiRozsz;
 
-        const score =
+        score =
           input.userScoreSchema.matematykaRozsz +
           input.userScoreSchema.fizykaRozsz +
           0.25 * angielski;
-
-        return score;
       }
 
       if (input.universityName === "PG") {
-        const score =
+        score =
           input.userScoreSchema.matematykaRozsz +
           input.userScoreSchema.fizykaRozsz +
           0.1 * 0.4 * input.userScoreSchema.polskiPodst +
           0.1 * input.userScoreSchema.angielskiRozsz;
-
-        return score;
       }
 
       if (input.universityName === "PP") {
@@ -58,16 +55,28 @@ export const appRouter = createRouter()
           input.userScoreSchema.fizykaRozsz < 30
             ? 2 * input.userScoreSchema.fizykaRozsz
             : 0.5 * input.userScoreSchema.fizykaRozsz + 50;
-        const score =
+        score =
           0.5 * input.userScoreSchema.polskiPodst +
           0.5 * input.userScoreSchema.angielskiPodst +
           2.5 *
             (input.userScoreSchema.matematykaPodst +
               input.userScoreSchema.matematykaRozsz) +
           2 * (fizykaPodst + input.userScoreSchema.fizykaRozsz);
-
-        return score;
       }
+
+      const courses = await ctx.prisma.course.findMany({
+        where: { id: { in: input.courses } },
+      });
+
+      const finalCourses = courses.map((course) => ({
+        name: course.name,
+        faculty: course.faculty,
+        isEnough: score >= course.minPoints,
+        score: `${score}pkt/${course.minPoints}pkt`,
+        id: course.id,
+      }));
+
+      return finalCourses;
     },
   });
 

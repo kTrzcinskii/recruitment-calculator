@@ -11,6 +11,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import AllCourses from "../components/AllCourses";
 import ChooseUniversity from "../components/ChooseUniversity";
+import Results from "../components/Results";
 import UserScore from "../components/UserScore";
 import { UserScoreInput } from "../schema/user.schema";
 import warningToastOptions from "../utils/toast/chooseUniversityToast";
@@ -62,6 +63,13 @@ const Home: NextPage = () => {
         />
       )}
       {step === 2 && <UserScore score={userScore} setScore={setUserScore} />}
+      {step === 3 && university && (
+        <Results
+          userScore={userScore}
+          university={university}
+          choosenCourses={choosenCourses}
+        />
+      )}
       <HStack spacing={4} py={5}>
         <IconButton
           aria-label='Previous Step'

@@ -156,6 +156,7 @@ const UserScore: React.FC<UserScoreProps> = ({ score, setScore }) => {
               setScore((score) => ({ ...score, czyB2: e.target.checked }))
             }
             colorScheme='purple'
+            width='320px'
           >
             Posiadam certyfikat o znajomości języka angielskiego na poziomie co
             najmniej B2.
